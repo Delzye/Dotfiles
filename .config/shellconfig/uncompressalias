@@ -1,0 +1,2 @@
+alias 'untargz'='tar -zxvf'
+alias 'untarbz2'='tar -xvjf'
