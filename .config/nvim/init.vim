@@ -1,13 +1,12 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
-source ~/.vimrc
 
 call plug#begin()
 "Status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "multiple cursors
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 "snippets
 Plug 'honza/vim-snippets'
 "code completion
@@ -18,25 +17,30 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " Auto-insert and delete brackets
 Plug 'jiangmiao/auto-pairs' 
-"highlight color-codes
-"Plug 'norcalli/nvim-colorizer.lua'
-"git commit messages
-Plug 'rhysd/git-messenger.vim'
-" Support for R in NVIM
-Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
-"CSV-Editor
-Plug 'chrisbra/csv.vim'
+" Better syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 call plug#end()
 
-let g:airline_theme='base16_gruvbox_dark_hard'
-"lua require'colorizer'.setup()
+"let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline_theme='everforest'
 
 " Explorer
 nmap <space>e :CocCommand explorer<CR>
 nmap <space>f :CocCommand explorer --preset floating<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
-" R
-let g:rout_follow_colorscheme = 1
-let g:Rout_more_colors = 1
-let g:R_csv_app = 'localc'
+" Unmap 
+let g:AutoPairsShortcutJump = '<A-h>'
+source ~/.vimrc
+
+" For treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "java", "c", "python", "haskell" },
+  ignore_install = {}, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = {},  -- list of language that will be disabled
+  },
+}
+EOF

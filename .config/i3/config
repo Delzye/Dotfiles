@@ -33,6 +33,7 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 bindsym $mod+d exec "dmenu_run -nf '#98971A' -nb '#282828' -sb '#689D68' -sf '#d79921' -fn 'monospace-10' -p 'run program >'"
+bindsym $mod+Shift+d exec "j4-dmenu-desktop"
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -53,11 +54,11 @@ bindsym $mod+R exec alacritty -e 'ranger'
 bindsym $mod+F4 exec firefox
 bindsym $mod+Shift+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b --refresh-rate=144
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Ctrl+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print exec --no-startup-id scrot --freeze ~/Screenshots/Screen_%Y-%m-%d-$wx$h-$s.png 
-bindsym $mod+Ctrl+p --release exec --no-startup-id scrot --freeze -s ~/Screenshots/Screen_%F_%T.png
-bindsym $mod+p exec --no-startup-id alacritty -e /opt/piavpn/var/update/pia-linux-2.6.1-05824.run
+bindsym $mod+p exec --no-startup-id alacritty -e 'sh /opt/piavpn/var/update/pia-linux-2.9-06393.run'
 bindsym $mod+Shift+p --release exec --no-startup-id scrot --freeze -s '/tmp/Screen_%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' 
+bindsym $mod+Ctrl+p --release exec --no-startup-id scrot --freeze -s ~/Screenshots/Screen_%F_%T.png
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 bindsym $mod+Ctrl+m exec /home/anton/.local/bin/mrs.sh
 # focus_follows_mouse no
@@ -157,7 +158,7 @@ workspace $ws5 output DP1
 workspace $ws6 output HDMI2
 workspace $ws7 output DP1
 workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
+workspace $ws9 output HDMI3
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -195,9 +196,6 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 # Open applications on specific workspaces
 assign [class="code-oss"] $ws1
 # assign [class="firefox"] $ws2
-assign [class="Thunderbird"] $ws6
-assign [class="TelegramDesktop"] $ws6
-assign [class="whatsapp-nativefier-d40211"] $ws6
 assign [class="Steam"] $ws7
 assign [class="Spotify"] $ws8
 
@@ -211,8 +209,11 @@ for_window [title="Friends List"] floating enable border normal
 for_window [title="^Steam - News .+$"] floating enable border normal
 for_window [title="^Steam Guard .+$"] floating enable border normal
 for_window [class="xpad"] floating enable border normal
+for_window [title="zoom"] floating enable border none
+for_window [class="Aufgabe16-SimpleDatabase"] floating enable border normal
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
+no_focus [title="zoom"]
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -244,20 +245,23 @@ mode "$mode_system" {
 # Autostart applications
 exec_always --no-startup-id dunst
 exec --no-startup-id "i3-msg 'workspace 6; append_layout ~/.config/i3/workspace-6.json'"
-exec --no-startup-id whatsapp-nativefier-dark
+exec --no-startup-id ~/WhatsAppWeb-linux-x64/WhatsAppWeb
+exec --no-startup-id ~/Login-ProtonMail-linux-x64/Login-ProtonMail
 exec --no-startup-id thunderbird
+exec --no-startup-id tutanota-desktop
 exec --no-startup-id discord-canary
 exec --no-startup-id discord
-# exec --no-startup-id telegram-desktop
+exec --no-startup-id telegram-desktop
 exec --no-startup-id setxkbmap -layout us -variant intl
 exec --no-startup-id picom -b --refresh-rate=144
 exec --no-startup-id nm-applet
 # exec_always --no-startup-id sbxkb
 #x exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id xpad
-exec_always --no-startup-id sleep 1s && nitrogen --restore;
+exec_always --no-startup-id nitrogen --restore; # sleep 1s &&
 exec --no-startup-id dropbox
-exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id sleep 1s && $HOME/.config/polybar/launch.sh;
+
 # Theme colors
 # set primary gruvbox colorscheme colors
 set $bg			#282828
@@ -295,8 +299,8 @@ for_window [class="^.*"] border pixel 0
 # border_radius 4
 
 # Set inner/outer gaps
-gaps inner 10
-gaps outer 10
+gaps inner 8 # 10
+gaps outer 8 # 10
 
 bindsym $mod+s          gaps inner current plus 5
 bindsym $mod+Shift+s    gaps inner current minus 5

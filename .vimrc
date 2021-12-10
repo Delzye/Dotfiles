@@ -24,6 +24,9 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+" Maven bindings
+map <leader>mc <ESC> :w! \| !maven-exec compile<CR>
+
 " Compile documents
 map <leader>c :w! \| !compiler <c-r>%<CR>
 
@@ -34,12 +37,12 @@ map <leader>p :!opout <c-r>%<CR><CR>
 autocmd VimLeave *.tex !texclear %
 
 " Move lines and blocks of lines
-nnoremap <C-A-j> :m+<CR>==
-nnoremap <C-A-k> :m-2<CR>==
-inoremap <C-A-j> <ESC>:m+<CR>==gi
-inoremap <C-A-k> <ESC>:m-2<CR>==gi
-vnoremap <C-A-j> :m '>+1<CR>gv=gv
-vnoremap <C-A-k> :m '<-2<CR>gv=gv
+nnoremap <A-down> :m+<CR>==
+nnoremap <A-up> :m-2<CR>==
+inoremap <A-down> <ESC>:m+<CR>==gi
+inoremap <A-up> <ESC>:m-2<CR>==gi
+vnoremap <A-down> :m '>+1<CR>gv=gv
+vnoremap <A-up> :m '<-2<CR>gv=gv
 
 " Delete instead of copy
 nnoremap d "_d
@@ -49,17 +52,33 @@ nnoremap <leader>d ""d
 vnoremap <leader>d ""d
 
 " Shortcutting split navigation
-map <A-h> <C-w>h
-map <A-j> <C-w>j
-map <A-k> <C-w>k
-map <A-l> <C-w>l
+map <A-n> <C-w>h
+map <A-e> <C-w>j
+map <A-i> <C-w>k
+map <A-o> <C-w>l
 
 " Resize split
+map <A-l> :vertical resize -5<CR>
 map <A-u> :res+5<CR>
-map <A-i> :res-5<CR>
-map <A-y> :vertical resize -5<CR>
-map <A-o> :vertical resize +5<CR>
+map <A-y> :res-5<CR>
+map <A-;> :vertical resize +5<CR>
 
 " Switch tabs
-map <A-H> :tabprevious<CR>
-map <A-L> :tabnext<CR>
+noremap <A-left> :tabprevious<CR>
+noremap <A-right> :tabnext<CR>
+
+packadd! everforest
+
+" Important!!
+        if has('termguicolors')
+          set termguicolors
+        endif
+        " For dark version.
+        set background=dark
+        " For light version.
+"        set background=light
+        " Set contrast.
+        " This configuration option should be placed before `colorscheme everforest`.
+        " Available values: 'hard', 'medium'(default), 'soft'
+        let g:everforest_background = 'hard'
+        colorscheme everforest

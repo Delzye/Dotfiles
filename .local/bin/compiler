@@ -32,6 +32,8 @@ case "$ext" in
 	go) go run "$file" ;;
 	cpp) g++ "$file" -o "$base" && "$base" ;;
 	h) sudo make install ;;
+	hs) ghc -dynamic "$file" ;;
+	java) javac "$file" && java "$file" ;;
 	m) octave "$file" ;;
 	md)	if  [ -x "$(command -v lowdown)" ]; then
 			lowdown -d nointem -e super "$file" -Tms | groff -mpdfmark -ms -kept > "$base".pdf
@@ -42,10 +44,11 @@ case "$ext" in
 		fi ; ;;
 	mom) preconv "$file" | refer -PS -e | groff -mom -kept -T pdf > "$base".pdf ;;
 	ms) preconv "$file" | refer -PS -e | groff -me -ms -kept -T pdf > "$base".pdf ;;
+	plantuml) plantuml "$file" ;;
 	py) python "$file" ;;
 	[rR]md) Rscript -e "rmarkdown::render('$file', quiet=TRUE)" ;;
-	rs) cargo build ;;
-   sass) sassc -a "$file" "$base.css" ;;
+	rs) cargo run ;;
+    sass) sassc -a "$file" "$base.css" ;;
 	scad) openscad -o "$base".stl "$file" ;;
 	sent) setsid -f sent "$file" 2>/dev/null ;;
 	tex) textype "$file" ;;

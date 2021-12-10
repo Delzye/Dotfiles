@@ -1,13 +1,23 @@
 {
-  "explorer.width": 30,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.previewAction.onHover": false,
-  "explorer.keyMappings.global": {
-    "<cr>": ["expandable?", "expand", "open"],
-    "v": "open:vsplit",
-	"t": "open:tab",
-	"h": "open:split"
-	  },
-  "python.jediEnabled": false,
-  "python.linting.flake8Enabled": true
+	"explorer.width": 30,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.previewAction.onHover": false,
+	"explorer.keyMappings.global": {
+		"<cr>": ["expandable?", "expand", "open"],
+		"v": "open:vsplit",
+		"t": "open:tab",
+		"h": "open:split"
+	},
+	"python.jediEnabled": false,
+	"python.linting.flake8Enabled": true,
+	"java.home": "/usr/lib/jvm/default",
+	"java.jdt.ls.vmargs": "-javaagent:/home/anton/.local/bin/lombok.jar",
+	"languageserver": {
+		"haskell": {
+		"command": "haskell-language-server-wrapper",
+		"args": ["--lsp"],
+		"rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+		"filetypes": ["haskell", "lhaskell"]
+		}
+	}
 }

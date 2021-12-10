@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export PATH=$PATH:/home/anton/.local/bin:/opt/gcc-arm-none-eabi-6-2017-q2-update/bin:/home/anton/.local/bin/uppaal64-4.1.25-5:/home/anton/.ghcup/ghc/8.10.7/bin
 # Created by newuser for 5.8
 neofetch
 
@@ -14,10 +15,17 @@ neofetch
 # Enable colors and change prompt:
 autoload -U colors && colors
 
+# Default Programs
+export EDITOR=nvim;
+export VISUAL=nvim;
+export BROWSER=google-chrome-stable;
+export FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1;
+
 # History in cache directory:
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.cache/zsh/history
+setopt share_history
 
 # Basic auto/tab complete:
 autoload -U compinit
